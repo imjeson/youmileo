@@ -56,11 +56,12 @@ export default function StoryDetailPage({ params }: Props) {
 
       {/* Story header */}
       <div className="bg-white rounded-2xl card-shadow overflow-hidden">
-        <div className="h-48 md:h-64 bg-coral-light flex items-center justify-center">
-          <div className="text-center text-gray-400">
-            <div className="text-6xl mb-2">📖</div>
-            <p className="text-sm">{story.coverImage}</p>
-          </div>
+        <div className="h-48 md:h-64 bg-coral-light flex items-center justify-center overflow-hidden">
+          <img
+            src={story.coverImage}
+            alt={story.title}
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="p-6 md:p-8">

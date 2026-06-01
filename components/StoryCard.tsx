@@ -21,11 +21,12 @@ export default function StoryCard({ story }: StoryCardProps) {
   return (
     <Link href={href} className="block">
       <div className="bg-white rounded-2xl overflow-hidden card-shadow card-hover">
-        <div className="h-40 bg-coral-light flex items-center justify-center">
-          <div className="text-center text-gray-400">
-            <div className="text-4xl mb-1">📖</div>
-            <p className="text-xs">{story.coverImage}</p>
-          </div>
+        <div className="h-40 bg-coral-light flex items-center justify-center overflow-hidden">
+          <img
+            src={story.coverImage}
+            alt={story.title}
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="p-5">
           <div className="flex items-center gap-2 mb-2">
