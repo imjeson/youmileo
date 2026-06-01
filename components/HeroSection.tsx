@@ -28,12 +28,11 @@ export default function HeroSection() {
         </div>
 
         <div className="flex-1 flex justify-center">
-          <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-warm-light border-2 border-warm/30 flex items-center justify-center">
-            <div className="text-center text-gray-400">
-              <div className="text-6xl mb-4">👨‍👧‍👦</div>
-              <p className="text-sm">hero-family.png</p>
-            </div>
-          </div>
+          <img
+            src="/images/hero-family.png"
+            alt="优米Leo看世界 - Jeson爸爸和优米、Leo"
+            className="w-72 h-72 md:w-96 md:h-96 object-contain drop-shadow-lg"
+          />
         </div>
       </div>
     </section>
