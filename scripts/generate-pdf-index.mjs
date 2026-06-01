@@ -6,6 +6,7 @@ import * as mupdf from 'mupdf'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PDF_DIR = path.resolve(__dirname, '../public/pdfs/stories')
 const COVERS_DIR = path.resolve(__dirname, '../public/images/covers')
+const MOVIES_DIR = path.resolve(__dirname, '../public/movies')
 const OUTPUT_FILE = path.resolve(__dirname, '../src/data/generated-stories.ts')
 
 function slugToTitle(slug) {
@@ -53,6 +54,39 @@ function extractCoverFromPdf(pdfPath, outputPath) {
   fs.writeFileSync(outputPath, pngBuffer)
 }
 
+function extractTextFromPdf(pdfPath) {
+  const fileBuffer = fs.readFileSync(pdfPath)
+  const doc = mupdf.Document.openDocument(fileBuffer, 'application/pdf')
+  const pageCount = doc.countPages()
+  const lines = []
+
+  for (let i = 0; i < pageCount; i++) {
+    const page = doc.loadPage(i)
+    const text = page.toStructuredText('preserve-whitespace').asText()
+    const pageLines = text
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0)
+    lines.push(...pageLines)
+  }
+
+  return lines
+}
+
+function buildAnimationMap() {
+  if (!fs.existsSync(MOVIES_DIR)) {
+    return new Map()
+  }
+  const map = new Map()
+  const files = fs.readdirSync(MOVIES_DIR).filter((f) => f.toLowerCase().endsWith('.html'))
+  for (const filename of files) {
+    const basename = filename.replace(/\.html$/i, '')
+    const dateSlug = basename
+    map.set(dateSlug, `/movies/${filename}`)
+  }
+  return map
+}
+
 function generate() {
   if (!fs.existsSync(PDF_DIR)) {
     fs.mkdirSync(PDF_DIR, { recursive: true })
@@ -60,6 +94,8 @@ function generate() {
   if (!fs.existsSync(COVERS_DIR)) {
     fs.mkdirSync(COVERS_DIR, { recursive: true })
   }
+
+  const animationMap = buildAnimationMap()
 
   const files = fs
     .readdirSync(PDF_DIR)
@@ -97,6 +133,24 @@ function generate() {
       }
     }
 
+    const dateSlug = `${date}-${slug}`
+    const animationUrl = animationMap.get(dateSlug) || undefined
+
+    if (animationUrl) {
+      console.log(`  🎬 Matched animation: ${dateSlug}.html`)
+    }
+
+    let pdfText = []
+    try {
+      const pdfPath = path.join(PDF_DIR, filename)
+      pdfText = extractTextFromPdf(pdfPath)
+      if (pdfText.length > 0) {
+        console.log(`  📝 Extracted ${pdfText.length} lines of text from ${filename}`)
+      }
+    } catch (err) {
+      console.warn(`  ⚠️  Failed to extract text from ${filename}:`, err.message)
+    }
+
     stories.push({
       id: `pdf-${index + 1}`,
       slug,
@@ -108,6 +162,8 @@ function generate() {
       duration: '8分钟',
       coverImage,
       pdfUrl,
+      animationUrl,
+      pdfText: pdfText.length > 0 ? pdfText : undefined,
       description: `今天和优米Leo一起阅读《${title}》，每天15分钟，讲故事、读绘本、看世界。`,
     })
   }
@@ -133,6 +189,8 @@ export type Story = {
   duration: string
   coverImage: string
   pdfUrl: string
+  animationUrl?: string
+  pdfText?: string[]
   description: string
   goal?: string
   vocabulary?: {

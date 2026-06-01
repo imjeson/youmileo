@@ -54,6 +54,20 @@ export default function StoryDetailPage({ params }: Props) {
         ← 返回故事列表
       </Link>
 
+      {/* Animation - top position */}
+      {story.animationUrl && (
+        <div className="mb-8">
+          <div className="relative w-full rounded-2xl overflow-hidden card-shadow" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              src={story.animationUrl}
+              className="absolute inset-0 w-full h-full border-0"
+              allowFullScreen
+              title={`${story.title} 动画`}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Story header */}
       <div className="bg-white rounded-2xl card-shadow overflow-hidden">
         <div className="h-48 md:h-64 bg-coral-light flex items-center justify-center overflow-hidden">
@@ -140,6 +154,20 @@ export default function StoryDetailPage({ params }: Props) {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {/* PDF text content - bottom */}
+      {story.pdfText && story.pdfText.length > 0 && (
+        <div className="mt-8 bg-white rounded-2xl card-shadow p-6 md:p-8">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">绘本内容</h2>
+          <div className="space-y-2">
+            {story.pdfText.map((line, i) => (
+              <p key={i} className="text-gray-600 leading-relaxed">
+                {line}
+              </p>
+            ))}
+          </div>
         </div>
       )}
     </div>
