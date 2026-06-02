@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { generatedStories } from '@/src/data/generated-stories'
 import EmptyState from '@/components/EmptyState'
+import TtsPlayer from '@/components/TtsPlayer'
 
 interface Props {
   params: { slug: string }
@@ -160,7 +161,10 @@ export default function StoryDetailPage({ params }: Props) {
       {/* PDF text content - bottom */}
       {story.pdfText && story.pdfText.length > 0 && (
         <div className="mt-8 bg-white rounded-2xl card-shadow p-6 md:p-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">绘本内容</h2>
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+            <h2 className="text-xl font-bold text-gray-800">绘本内容</h2>
+            <TtsPlayer text={story.pdfText} />
+          </div>
           <div className="space-y-2">
             {story.pdfText.map((line, i) => (
               <p key={i} className="text-gray-600 leading-relaxed">
