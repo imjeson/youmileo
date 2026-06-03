@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2026-06-03-why-is-the-ocean-so-big</title>
+<style>
+  :root{--blue:#1288c9;--deep:#0b4b78;--sand:#ffe7a3;--card:#ffffff;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",Arial,sans-serif;background:linear-gradient(#e8f8ff,#fff7dc);color:#16425b;overflow:hidden}
+  .stage{width:100vw;height:100vh;position:relative;display:flex;align-items:center;justify-content:center;padding:24px}
+  .slide{display:none;width:min(1180px,94vw);height:min(680px,90vh);background:linear-gradient(180deg,#f6fcff 0%,#ffffff 60%,#dcf7ff 100%);border-radius:30px;box-shadow:0 20px 60px rgba(0,80,120,.18);padding:38px;position:relative;overflow:hidden}
+  .slide.active{display:block;animation:fade .5s ease}
+  @keyframes fade{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+  .title{font-weight:800;color:var(--deep);font-size:22px;letter-spacing:.5px}
+  .pageNo{position:absolute;right:38px;top:36px;color:#5c8aa6;font-weight:700}
+  .ocean{position:absolute;left:-5%;right:-5%;bottom:-10%;height:34%;background:linear-gradient(180deg,#72d1f3,#238fd0);border-radius:45% 45% 0 0;animation:swell 4s ease-in-out infinite}
+  .ocean:before{content:"";position:absolute;top:-20px;left:0;width:200%;height:40px;background:radial-gradient(circle at 40px 20px,#72d1f3 0 24px,transparent 25px);background-size:80px 40px;animation:wave 7s linear infinite}
+  @keyframes wave{from{transform:translateX(0)}to{transform:translateX(-80px)}}
+  @keyframes swell{50%{transform:translateY(-10px)}}
+  .content{position:absolute;right:52px;top:118px;width:42%;z-index:2;background:rgba(255,255,255,.9);border-radius:24px;padding:30px;box-shadow:0 10px 30px rgba(0,70,120,.12)}
+  .en{font-size:38px;line-height:1.15;font-weight:900;color:#0d4c73;margin:0 0 18px}
+  .cn{font-size:22px;line-height:1.55;margin:0 0 18px}
+  .q{background:#fff5d0;border-radius:18px;padding:14px 18px;font-size:18px;line-height:1.45;color:#725308}
+  .art{position:absolute;left:70px;top:116px;width:44%;height:55%;z-index:1}
+  .earth,.sun,.moon,.cloud,.basin,.heart{position:absolute;border-radius:50%}
+  .earth{width:210px;height:210px;background:#159bd8;left:110px;top:70px;box-shadow:inset -20px -15px 0 rgba(0,0,0,.08);animation:float 4s ease-in-out infinite}
+  .land{position:absolute;background:#76ce75;border-radius:50%;width:80px;height:45px;left:145px;top:110px;transform:rotate(-20deg)}
+  .land.two{left:245px;top:185px;width:70px;height:50px}
+  .sun{width:78px;height:78px;background:#ffd46b;right:60px;top:35px;animation:pulse 3s infinite}
+  .cloud{width:110px;height:60px;background:#d9f0ff;left:80px;top:35px;animation:drift 8s linear infinite}
+  .cloud:before,.cloud:after{content:"";position:absolute;background:#d9f0ff;border-radius:50%} .cloud:before{width:70px;height:70px;left:18px;top:-25px} .cloud:after{width:80px;height:80px;left:55px;top:-35px}
+  .drop{position:absolute;width:8px;height:24px;background:#2c9edc;border-radius:8px;animation:rain 1.4s linear infinite}
+  .river{position:absolute;left:180px;top:0;width:120px;height:350px;background:#54bfe8;border-radius:60px;transform:rotate(25deg);animation:flow 3s ease-in-out infinite}
+  .fish{position:absolute;width:54px;height:28px;background:#ffad5a;border-radius:50%;animation:swim 5s linear infinite} .fish:after{content:"";position:absolute;right:-18px;top:5px;border-left:20px solid #ffad5a;border-top:9px solid transparent;border-bottom:9px solid transparent}
+  .whale{position:absolute;width:150px;height:58px;background:#5c90c9;border-radius:50%;left:135px;top:150px;animation:float 5s ease-in-out infinite}
+  .whale:after{content:"";position:absolute;right:-28px;top:18px;border-left:36px solid #5c90c9;border-top:16px solid transparent;border-bottom:16px solid transparent}
+  .moon{width:82px;height:82px;background:#fff3a6;right:130px;top:30px;box-shadow:-18px 0 0 #17345a;animation:pulse 4s infinite}
+  .heart{width:80px;height:72px;left:215px;top:95px;background:#f46f74;transform:rotate(45deg);border-radius:12px;animation:pulse 2.5s infinite} .heart:before,.heart:after{content:"";position:absolute;width:80px;height:80px;border-radius:50%;background:#f46f74} .heart:before{left:-40px;top:0} .heart:after{left:0;top:-40px}
+  @keyframes float{50%{transform:translateY(-16px)}}
+  @keyframes pulse{50%{transform:scale(1.08)}}
+  @keyframes drift{50%{transform:translateX(70px)}}
+  @keyframes rain{from{transform:translateY(0);opacity:.9}to{transform:translateY(130px);opacity:.1}}
+  @keyframes flow{50%{transform:rotate(25deg) translateY(15px)}}
+  @keyframes swim{from{left:-60px}to{left:460px}}
+  .controls{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:flex;gap:12px;z-index:10}
+  button{border:none;border-radius:999px;padding:12px 18px;font-size:16px;font-weight:700;background:#fff;color:#0d5b85;box-shadow:0 6px 18px rgba(0,80,120,.18);cursor:pointer}
+  button:hover{background:#e8f8ff}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<div class="controls"><button onclick="prev()">上一页</button><button onclick="togglePlay()" id="playBtn">暂停自动播放</button><button onclick="next()">下一页</button></div>
+<script>
+const scenes = [{"en": "The ocean is very, very big.", "cn": "海洋看起来像一条没有尽头的蓝色毯子，因为地球表面大部分都被海水盖住了。", "q": "你觉得从海边一直看过去，海的尽头在哪里呢？", "ill": "planet", "page": 1}, {"en": "Long ago, Earth was hot and steamy.", "cn": "很久很久以前，地球像一个热乎乎的大球，天空里有许多水汽，就像大锅冒出的白雾。", "q": "你见过热水冒白气吗？它像不像云？", "ill": "steam", "page": 2}, {"en": "Rain fell for a very long time.", "cn": "后来地球慢慢变凉，天空中的水汽变成雨，滴答滴答地下了很久很久。", "q": "如果雨一直下，地面低的地方会发生什么？", "ill": "rain", "page": 3}, {"en": "Water filled the low places.", "cn": "雨水流到低低的地方，慢慢装满了大坑和大盆地，这些地方后来就成了海洋。", "q": "家里的碗为什么能装住水？地球上的低地像不像大碗？", "ill": "basin", "page": 4}, {"en": "Rivers keep bringing water to the sea.", "cn": "小溪、河流会把雨水和融化的雪水带向大海，海洋就像很多河流最后集合的大客厅。", "q": "你知道河水最后会流到哪里吗？", "ill": "river", "page": 5}, {"en": "The ocean has many deep homes.", "cn": "海洋不只是很宽，还很深。里面有浅浅的海滩，也有深到阳光几乎到不了的海沟。", "q": "如果你是一条小鱼，你想住在浅海还是深海？为什么？", "ill": "deep", "page": 6}, {"en": "The moon gently pulls the ocean.", "cn": "月亮会轻轻拉动海水，让海水涨起来又退下去，这就是潮汐。海洋大，所以这个变化也很明显。", "q": "你在海边见过海水涨潮或退潮吗？", "ill": "moon", "page": 7}, {"en": "The ocean helps Earth stay cozy.", "cn": "海洋像地球的大保温杯，会慢慢吸收热量，也慢慢放出热量，帮助很多地方不太热也不太冷。", "q": "为什么一大杯水比一小杯水凉得慢？", "ill": "cozy", "page": 8}, {"en": "So many animals live in the ocean.", "cn": "大大的海洋给小鱼、海龟、鲸鱼、珊瑚和许多看不见的小生命提供了家。", "q": "你最想认识哪一种海洋动物？", "ill": "animals", "page": 9}, {"en": "A big ocean needs gentle care.", "cn": "海洋很大，但也需要我们的温柔照顾。少乱扔垃圾、爱护河流，就是在保护蓝色的大海。", "q": "今天我们可以做一件什么小事来帮助海洋？", "ill": "care", "page": 10}];
+const artKinds = ['planet','steam','rain','basin','river','deep','moon','cozy','animals','care'];
+function art(kind){
+  if(kind==='planet') return `<div class="sun"></div><div class="earth"></div><div class="land"></div><div class="land two"></div>`;
+  if(kind==='steam') return `<div class="sun" style="left:210px;top:140px;background:#f2a37c"></div><div class="cloud"></div><div class="cloud" style="left:230px;top:90px;animation-delay:-2s"></div>`;
+  if(kind==='rain') return `<div class="cloud"></div>${Array.from({length:22},(_,i)=>`<span class="drop" style="left:${70+(i%11)*34}px;top:${110+Math.floor(i/11)*55}px;animation-delay:-${i*.08}s"></span>`).join('')}`;
+  if(kind==='basin') return `<div class="basin" style="left:80px;top:170px;width:330px;height:150px;background:#d1aa73"></div><div class="basin" style="left:118px;top:190px;width:260px;height:92px;background:#65c8ee"></div>`;
+  if(kind==='river') return `<div class="river"></div><div class="fish" style="top:220px;animation-delay:-1s"></div>`;
+  if(kind==='deep') return `<div style="position:absolute;inset:0;background:linear-gradient(#7bd9fb,#0b3c69);border-radius:28px"></div><div class="fish" style="top:80px;animation-delay:-1s"></div><div class="fish" style="top:190px;transform:scale(.7);animation-delay:-3s"></div>`;
+  if(kind==='moon') return `<div style="position:absolute;inset:0;background:#17345a;border-radius:28px"></div><div class="moon"></div>`;
+  if(kind==='cozy') return `<div class="sun"></div><div class="earth"></div><div class="land"></div>`;
+  if(kind==='animals') return `<div class="whale"></div><div class="fish" style="top:245px;animation-delay:-2s"></div><div class="fish" style="top:85px;transform:scale(.7);animation-delay:-4s"></div>`;
+  if(kind==='care') return `<div class="heart"></div><div class="earth" style="width:180px;height:180px;left:165px;top:145px"></div>`;
+}
+function render(){
+  const stage=document.getElementById('stage');
+  stage.innerHTML=scenes.map((s,i)=>`<section class="slide ${i===0?'active':''}"><div class="title">Youmi Leo Sees the World | 海洋为什么这么大？</div><div class="pageNo">${s.page} / ${scenes.length}</div><div class="art">${art(s.ill)}</div><div class="content"><p class="en">${s.en}</p><p class="cn">${s.cn}</p><div class="q">亲子提问：${s.q}</div></div><div class="ocean"></div></section>`).join('');
+}
+let idx=0, playing=true, timer;
+function show(n){const slides=[...document.querySelectorAll('.slide')];slides[idx].classList.remove('active');idx=(n+slides.length)%slides.length;slides[idx].classList.add('active');}
+function next(){show(idx+1)} function prev(){show(idx-1)}
+function togglePlay(){playing=!playing;document.getElementById('playBtn').textContent=playing?'暂停自动播放':'开始自动播放'; if(playing) start(); else clearInterval(timer)}
+function start(){clearInterval(timer); timer=setInterval(()=>{ if(playing) next(); },4500)}
+render(); start();
+</script>
+</body>
+</html>
