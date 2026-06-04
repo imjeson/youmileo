@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>优米Leo看世界：瀑布是怎么出现的？</title>
+  <style>
+    :root{--sky:#dff6ff;--blue:#31aee8;--deep:#0977a8;--green:#8bcf65;--brown:#8a6a50;--cream:#fff7df;}
+    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",Arial,sans-serif;background:linear-gradient(#bdefff,#effbff);color:#14384d;overflow:hidden}
+    .app{width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+    .stage{position:relative;width:min(1100px,96vw);aspect-ratio:16/9;background:var(--sky);border-radius:28px;box-shadow:0 18px 48px rgba(23,80,110,.28);overflow:hidden;border:8px solid white}
+    .slide{position:absolute;inset:0;padding:28px 34px;display:none}.slide.active{display:block;animation:fade .5s ease}
+    @keyframes fade{from{opacity:.15;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+    .title{position:absolute;left:34px;top:24px;font-size:28px;font-weight:800;color:#073b5a;text-shadow:0 2px 0 rgba(255,255,255,.8)}
+    .page{position:absolute;right:34px;top:26px;font-size:18px;font-weight:700;color:#2d6883}.sun{position:absolute;right:96px;top:72px;width:74px;height:74px;background:#ffd35a;border-radius:50%;animation:pulse 2.6s infinite ease-in-out}.cloud{position:absolute;width:130px;height:42px;background:white;border-radius:24px;filter:drop-shadow(0 4px 0 rgba(118,176,198,.18));animation:cloud 9s infinite alternate ease-in-out}.cloud:before,.cloud:after{content:"";position:absolute;background:white;border-radius:50%}.cloud:before{width:58px;height:58px;left:18px;top:-26px}.cloud:after{width:72px;height:72px;right:12px;top:-38px}.c1{left:70px;top:84px}.c2{left:560px;top:114px;transform:scale(.72);animation-duration:11s}@keyframes cloud{to{transform:translateX(42px)}}@keyframes pulse{50%{transform:scale(1.08)}}
+    .ground{position:absolute;left:0;right:0;bottom:0;height:118px;background:linear-gradient(#9ad673,#70bd58);border-radius:60% 60% 0 0/38% 38% 0 0}.mountain{position:absolute;bottom:92px;width:0;height:0;border-left:170px solid transparent;border-right:170px solid transparent;border-bottom:270px solid #85b46e}.m1{left:170px}.m2{left:390px;border-left-width:210px;border-right-width:210px;border-bottom-color:#6da561;border-bottom-width:330px}.snow{position:absolute;width:0;height:0;border-left:42px solid transparent;border-right:42px solid transparent;border-bottom:64px solid #efffff;left:-42px;top:0}.river{position:absolute;background:var(--blue);border:5px solid #dffaff;border-radius:999px;box-shadow:inset 0 0 18px rgba(255,255,255,.55);animation:water 1.2s infinite linear}.river.small{width:170px;height:22px;transform:rotate(37deg)}.r1{left:360px;top:285px}.r2{left:520px;top:260px;transform:rotate(-42deg)!important}.r3{left:470px;top:350px;width:260px;height:32px;transform:rotate(58deg)}@keyframes water{50%{filter:brightness(1.15)}}
+    .cliffL,.cliffR{position:absolute;bottom:95px;background:var(--brown);width:210px;height:360px;clip-path:polygon(20% 0,100% 0,78% 100%,0 100%)}.cliffL{left:300px}.cliffR{right:270px;transform:scaleX(-1);background:#735846}.fall{position:absolute;left:500px;top:220px;width:120px;height:300px;background:linear-gradient(90deg,#61c7f2,#e8fcff,#45bdeb);border-radius:0 0 50px 50px;box-shadow:0 0 28px rgba(255,255,255,.8);animation:fall 1.05s infinite linear}.fall:before,.fall:after{content:"";position:absolute;top:0;bottom:0;width:14px;background:rgba(255,255,255,.75);border-radius:12px;animation:stripe .7s infinite linear}.fall:before{left:28px}.fall:after{right:26px}.pool{position:absolute;left:390px;bottom:72px;width:340px;height:86px;background:#1488bd;border-radius:50%;box-shadow:inset 0 0 22px #dffaff}.mist{position:absolute;left:430px;bottom:120px;width:260px;height:90px}.mist span{position:absolute;background:rgba(255,255,255,.72);border-radius:50%;animation:mist 2.2s infinite ease-in-out}.mist span:nth-child(1){width:58px;height:58px;left:20px;bottom:0}.mist span:nth-child(2){width:72px;height:72px;left:95px;bottom:10px;animation-delay:.3s}.mist span:nth-child(3){width:52px;height:52px;right:10px;bottom:6px;animation-delay:.6s}@keyframes fall{to{background-position:0 60px}}@keyframes stripe{to{transform:translateY(38px);opacity:.4}}@keyframes mist{50%{transform:translateY(-18px) scale(1.08);opacity:.52}}
+    .rock{position:absolute;border-radius:24px;background:#8e7660;box-shadow:inset 0 -8px 0 rgba(0,0,0,.12)}.rock.rk1{left:285px;bottom:92px;width:110px;height:48px}.rock.rk2{left:705px;bottom:106px;width:130px;height:56px;background:#6f5847}.rainbow{position:absolute;right:240px;top:258px;width:160px;height:88px;border-radius:160px 160px 0 0;border-top:12px solid #ef476f;border-left:12px solid transparent;border-right:12px solid transparent;box-shadow:0 -13px 0 #ffd166,0 -26px 0 #06d6a0,0 -39px 0 #118ab2;opacity:.85;animation:pulse 2.8s infinite}.arrow{position:absolute;left:610px;top:185px;font-size:54px;color:#f77f43;animation:arrow 1.4s infinite ease-in-out}@keyframes arrow{50%{transform:translateX(-28px)}}
+    .caption{position:absolute;left:44px;right:44px;bottom:30px;background:rgba(255,248,225,.95);border:3px solid rgba(238,179,76,.65);border-radius:22px;padding:18px 24px}.en{font-size:30px;font-weight:800;color:#064568;margin-bottom:8px}.zh{font-size:20px;line-height:1.5;color:#1d3440}.ask{font-size:18px;color:#a34e12;margin-top:8px;font-weight:700}.tree{position:absolute;bottom:92px;width:18px;height:70px;background:#7a4c2d;border-radius:8px}.tree:before{content:"";position:absolute;left:-33px;top:-58px;width:84px;height:84px;border-radius:50%;background:#2d9b55;box-shadow:22px 20px 0 #27914f,-20px 22px 0 #3ab666}.t1{left:102px}.t2{left:860px;transform:scale(.8)}.t3{left:790px;transform:scale(.62)}
+    .controls{display:flex;gap:12px;align-items:center;margin-top:16px}.controls button{border:none;border-radius:999px;padding:10px 18px;font-size:16px;font-weight:800;background:white;color:#0b5e84;box-shadow:0 8px 20px rgba(25,85,110,.2);cursor:pointer}.controls button:hover{transform:translateY(-1px)}.dot{width:10px;height:10px;border-radius:50%;background:#78bdd5}.dot.active{background:#0b81b4;transform:scale(1.3)}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="stage" id="stage"></div>
+    <div class="controls"><button id="prev">上一页</button><button id="play">暂停自动播放</button><button id="next">下一页</button><span id="dots"></span></div>
+  </div>
+<script>
+const slides = [
+  ['Water begins high in the mountains.','很多瀑布的故事，常常从高高的山上开始。雨水、融化的雪水会慢慢汇成小溪。','你觉得山上的水会往哪里走呢？','mountain'],
+  ['Tiny streams join to make a river.','一条小溪遇见另一条小溪，就像小伙伴牵手一样，慢慢变成更宽、更有力的河流。','如果很多小水滴一起出发，会发生什么？','streams'],
+  ['The river flows downhill.','水喜欢往低处流。山坡像一条斜斜的滑梯，河水就顺着它一路向下跑。','你玩滑梯时，是往上滑还是往下滑？','downhill'],
+  ['Sometimes the river meets a steep cliff.','有时候，河流前面突然出现一块很陡的岩石边，就像地面忽然断开了一样。','如果小河跑到悬崖边，它还能慢慢走吗？','cliff'],
+  ['Then the water falls down, down, down!','河水没有路可以平平地走了，就从高处哗啦啦落下来，这就是瀑布最精彩的样子。','你听过瀑布的声音吗？你觉得像什么？','fall'],
+  ['Soft rocks wear away faster than hard rocks.','瀑布下面的岩石有软有硬。软岩石比较容易被水冲走，硬岩石会留下来，形成高低差。','你觉得沙子和石头，哪一个更容易被水冲走？','rocks'],
+  ['The falling water makes mist and rainbows.','水从高处落下，会撞出细细的小水雾。阳光照过来时，有时候还能看见漂亮的小彩虹。','如果你站在瀑布旁边，脸上会不会凉凉的？','mist'],
+  ['Waterfalls can slowly move backward.','水一直冲呀冲，悬崖边的岩石会一点点被改变。所以有些瀑布会在很长很长的时间里慢慢后退。','你觉得瀑布一天能后退很多吗，还是一点点？','backward'],
+  ['A waterfall is a river taking a big jump.','原来，瀑布不是突然冒出来的魔法，而是河流、山坡、岩石和时间一起完成的大跳跃。','下次看到瀑布，你会想起哪些小秘密？','summary']
+];
+const stage = document.getElementById('stage');
+function art(type){
+  const base = `<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="ground"></div><div class="tree t1"></div><div class="tree t2"></div>`;
+  const mountains = `<div class="mountain m1"><div class="snow"></div></div><div class="mountain m2"><div class="snow"></div></div>`;
+  const streams = `<div class="river small r1"></div><div class="river small r2"></div><div class="river r3"></div>`;
+  const waterfall = `<div class="cliffL"></div><div class="cliffR"></div><div class="fall"></div><div class="pool"></div><div class="mist"><span></span><span></span><span></span></div>`;
+  if(type==='mountain') return base+mountains+`<div class="river small r1"></div>`;
+  if(type==='streams') return base+mountains+streams;
+  if(type==='downhill') return base+`<div class="mountain m2" style="left:420px;transform:rotate(24deg);border-bottom-color:#93c36e"></div><div class="river r3" style="left:310px;top:285px;width:420px;transform:rotate(35deg)"></div><div class="tree t3"></div>`;
+  if(type==='cliff') return base+waterfall+`<div class="title" style="top:145px;left:462px;color:white">A steep cliff!</div>`;
+  if(type==='fall') return base+waterfall+`<div class="title" style="top:140px;left:500px;color:white;font-size:40px">Splash!</div>`;
+  if(type==='rocks') return base+waterfall+`<div class="rock rk1"></div><div class="rock rk2"></div>`;
+  if(type==='mist') return base+waterfall+`<div class="rainbow"></div>`;
+  if(type==='backward') return base+waterfall+`<div class="arrow">←</div>`;
+  return base+mountains+waterfall+`<div class="rainbow"></div><div class="tree t3"></div>`;
+}
+slides.forEach((s,i)=>{
+  const el=document.createElement('section'); el.className='slide'+(i===0?' active':'');
+  el.innerHTML=`<div class="title">优米Leo看世界：瀑布是怎么出现的？</div><div class="page">${i+1}/9</div>${art(s[3])}<div class="caption"><div class="en">${s[0]}</div><div class="zh">${s[1]}</div><div class="ask">亲子提问：${s[2]}</div></div>`;
+  stage.appendChild(el);
+});
+let idx=0, playing=true, timer;
+const dots=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');d.style.display='inline-block';d.style.margin='0 4px';d.onclick=()=>show(i);dots.appendChild(d)});
+function show(n){idx=(n+slides.length)%slides.length;document.querySelectorAll('.slide').forEach((el,i)=>el.classList.toggle('active',i===idx));document.querySelectorAll('.dot').forEach((el,i)=>el.classList.toggle('active',i===idx));}
+function reset(){clearInterval(timer); if(playing) timer=setInterval(()=>show(idx+1),5000)}
+document.getElementById('prev').onclick=()=>{show(idx-1);reset()};
+document.getElementById('next').onclick=()=>{show(idx+1);reset()};
+document.getElementById('play').onclick=()=>{playing=!playing;document.getElementById('play').textContent=playing?'暂停自动播放':'开始自动播放';reset()};
+reset();
+</script>
+</body>
+</html>

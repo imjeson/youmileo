@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { generatedStories } from '@/src/data/generated-stories'
 import EmptyState from '@/components/EmptyState'
 import TtsPlayer from '@/components/TtsPlayer'
+import AnimationPlayer from '@/components/AnimationPlayer'
 
 interface Props {
   params: { slug: string }
@@ -58,14 +59,7 @@ export default function StoryDetailPage({ params }: Props) {
       {/* Animation - top position */}
       {story.animationUrl && (
         <div className="mb-8">
-          <div className="relative w-full rounded-2xl overflow-hidden card-shadow" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              src={story.animationUrl}
-              className="absolute inset-0 w-full h-full border-0"
-              allowFullScreen
-              title={`${story.title} 动画`}
-            />
-          </div>
+          <AnimationPlayer src={story.animationUrl} title={`${story.title} 动画`} />
         </div>
       )}
 

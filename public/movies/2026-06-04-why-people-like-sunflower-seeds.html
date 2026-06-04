@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>优米Leo看世界 - Why People Like Sunflower Seeds</title>
+<style>
+  :root{--brown:#5b3218;--orange:#e58a2a;--cream:#fff5dc;--green:#dff2c6;--pink:#ffb6b9;}
+  *{box-sizing:border-box} body{margin:0;background:#fff3d1;font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#5e3b1e;overflow:hidden;}
+  .stage{width:100vw;height:100vh;position:relative;background:linear-gradient(#fff5dc 0 70%,#dff2c6 70%);overflow:hidden;}
+  .sun{position:absolute;left:6vw;top:6vh;width:9vw;height:9vw;background:#ffe6a3;border-radius:50%;box-shadow:0 0 0 2vw rgba(255,210,100,.08);animation:float 4s ease-in-out infinite;}
+  .brand{position:absolute;left:4vw;top:3vh;font-size:1.4vw;color:#8b5a2b}.pageNo{position:absolute;right:4vw;top:3vh;font-size:1.2vw;color:#8b5a2b}
+  .scene{position:absolute;inset:0;display:none}.scene.active{display:block}.caption{position:absolute;left:8vw;right:8vw;bottom:7vh;background:rgba(255,255,255,.92);border:3px solid #f2c079;border-radius:24px;padding:2.4vh 3vw;text-align:center;box-shadow:0 10px 30px rgba(125,76,29,.12)}
+  .caption h1{margin:0 0 .8vh;font-size:3vw;letter-spacing:.03em}.caption h2{margin:0;font-size:1.8vw;font-weight:500;color:#8a4f20}.controls{position:absolute;right:4vw;bottom:2.5vh;display:flex;gap:1vw;align-items:center;z-index:20}.controls button{border:0;border-radius:999px;padding:.8vw 1.3vw;background:#8b5a2b;color:white;font-size:1vw;cursor:pointer}.controls button:hover{filter:brightness(1.05)}.dot{width:.8vw;height:.8vw;border-radius:50%;background:#cfa36c}.dot.on{background:#8b5a2b}.dots{display:flex;gap:.45vw;margin-right:1vw}.hint{position:absolute;left:4vw;bottom:3vh;font-size:1vw;color:#8b5a2b;z-index:20}
+  .seed{position:absolute;width:2vw;height:4vw;background:#5b3218;border:2px solid #3b2010;border-radius:50% 50% 48% 48%;transform:rotate(20deg);box-shadow:inset .25vw 0 #f7d9a8;animation:seedDance 1.9s ease-in-out infinite alternate}.seed.small{width:1.1vw;height:2.2vw}.seed.big{width:8vw;height:15vw;border-width:4px}.petal{position:absolute;width:5vw;height:9vw;background:#ffd15c;border-radius:50%;transform-origin:50% 100%}.center{position:absolute;width:13vw;height:13vw;background:#6b3a1e;border-radius:50%;}.sunflower{position:absolute;width:28vw;height:28vw;animation:sway 3.4s ease-in-out infinite}.child{position:absolute;width:8vw;height:12vw;animation:bounce 2.8s ease-in-out infinite}.head{position:absolute;left:2vw;top:0;width:4vw;height:4vw;background:#f7c899;border-radius:50%}.hair:before,.hair:after{content:"";position:absolute;top:.2vw;width:1.1vw;height:1.1vw;background:#654321;border-radius:50%}.hair:before{left:1.4vw}.hair:after{right:1.4vw}.face:before,.face:after{content:"";position:absolute;top:2vw;width:.35vw;height:.35vw;background:#6b3a1e;border-radius:50%}.face:before{left:3vw}.face:after{right:3vw}.body{position:absolute;left:1.4vw;top:3.6vw;width:5.2vw;height:5.5vw;background:#ffb6b9;border-radius:1vw}.arm{position:absolute;top:4.7vw;width:4vw;height:.8vw;background:#f7c899;border-radius:1vw}.arm.left{left:-1.8vw;transform:rotate(-40deg)}.arm.right{right:-1.8vw;transform:rotate(40deg)}.table{position:absolute;width:30vw;height:6vw;background:#ebc08b;border-radius:3vw;}
+  .wave{position:absolute;border:.45vw solid #f09b3e;border-left:0;border-bottom:0;border-radius:50%;animation:pulse 1.7s ease-out infinite}.star{position:absolute;width:4vw;height:4vw;background:#ffd15c;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:twinkle 1.3s ease-in-out infinite}.heart{position:absolute;width:7vw;height:6vw;background:#ff8fa3;transform:rotate(-45deg);animation:heartBeat 1.4s ease-in-out infinite}.heart:before,.heart:after{content:"";position:absolute;width:7vw;height:6vw;background:#ff8fa3;border-radius:50%}.heart:before{top:-3vw;left:0}.heart:after{left:3vw;top:0}.glass{position:absolute;width:5vw;height:11vw;background:#bfe7ff;border-radius:1vw;overflow:hidden}.water{position:absolute;bottom:0;left:0;width:100%;height:58%;background:#c9f3ff;animation:water 2s ease-in-out infinite}.bowl{position:absolute;width:23vw;height:8vw;background:#f2c079;border-radius:0 0 12vw 12vw;overflow:hidden}.bowl:before{content:"";position:absolute;left:2vw;right:2vw;top:-1vw;height:4vw;background:#fff1d6;border-radius:50%}
+  @keyframes float{50%{transform:translateY(1vh)}}@keyframes sway{50%{transform:rotate(5deg)}}@keyframes bounce{50%{transform:translateY(-1vh)}}@keyframes seedDance{to{transform:translateY(-1.2vh) rotate(-25deg)}}@keyframes pulse{from{transform:scale(.4);opacity:.9}to{transform:scale(1.25);opacity:0}}@keyframes twinkle{50%{transform:scale(1.18) rotate(8deg)}}@keyframes heartBeat{50%{transform:rotate(-45deg) scale(1.12)}}@keyframes water{50%{height:64%}}
+  @media(max-width:900px){.caption h1{font-size:6vw}.caption h2{font-size:4vw}.brand,.pageNo,.hint,.controls button{font-size:3vw}.controls{gap:2vw}.dot{width:2vw;height:2vw}.sun{width:18vw;height:18vw}.caption{bottom:12vh}.stage{height:100svh}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="sun"></div><div class="brand">优米Leo看世界</div><div class="pageNo" id="pageNo">1 / 10</div>
+  <div id="scenes"></div>
+  <div class="hint">自动播放中，也可以手动翻页</div>
+  <div class="controls"><div class="dots" id="dots"></div><button id="prev">上一页</button><button id="play">暂停</button><button id="next">下一页</button></div>
+</div>
+<script>
+const data=[
+ ['People like sunflower seeds.','人们喜欢嗑瓜子。','sunflower'],
+ ['First, we make a tiny crack.','第一步，轻轻咔嚓一下。','crack'],
+ ['Our fingers help too.','小手指也来帮忙。','fingers'],
+ ['Crunch sounds feel fun.','脆脆的声音很有趣。','crunch'],
+ ['One seed is a tiny reward.','一颗瓜子像一个小奖励。','reward'],
+ ['Seeds make talking warmer.','瓜子让聊天更热闹。','family'],
+ ['Seeds come from sunflowers.','瓜子来自向日葵。','bigflower'],
+ ['Inside is a little energy.','瓜子仁里有一点能量。','energy'],
+ ['We keep shells tidy.','瓜子壳要收拾好。','tidy'],
+ ['A little snack can feel like love.','小零食里也有爱的味道。','love']
+];
+const scenes=document.getElementById('scenes'), dots=document.getElementById('dots');
+function seed(x,y,cls=''){return `<div class="seed ${cls}" style="left:${x}vw;top:${y}vh;animation-delay:${(x+y)%2}s"></div>`}
+function child(x,y,color='#ffb6b9'){return `<div class="child" style="left:${x}vw;top:${y}vh"><div class="head"><div class="hair"></div><div class="face"></div></div><div class="body" style="background:${color}"></div><div class="arm left"></div><div class="arm right"></div></div>`}
+function flower(x,y,s=1){let petals=''; for(let i=0;i<18;i++) petals+=`<div class="petal" style="left:${10*s}vw;top:${2*s}vw;transform:rotate(${i*20}deg) translateY(${-7*s}vw);width:${4*s}vw;height:${8*s}vw"></div>`; return `<div class="sunflower" style="left:${x}vw;top:${y}vh;transform:scale(${s})">${petals}<div class="center" style="left:${7.5*s}vw;top:${7.5*s}vw"></div>${Array.from({length:22},(_,i)=>seed(10+Math.random()*8,17+Math.random()*9,'small')).join('')}</div>`}
+function visual(type){
+ if(type==='sunflower')return flower(27,23,1.1)+child(66,34,'#ffb6b9')+Array.from({length:12},(_,i)=>seed(53+Math.random()*10,28+Math.random()*16)).join('');
+ if(type==='crack')return `<div class="seed big" style="left:45vw;top:28vh"></div><svg style="position:absolute;left:48vw;top:32vh;width:8vw;height:20vh" viewBox="0 0 100 200"><path d="M45 0 L65 70 L38 125 L55 200" stroke="#fff0b8" stroke-width="12" fill="none" stroke-linecap="round"/></svg><div style="position:absolute;left:59vw;top:30vh;font-size:5vw;color:#e58a2a;font-weight:800;animation:bounce 1.2s infinite">crack!</div>`;
+ if(type==='fingers')return `<div style="position:absolute;left:25vw;top:40vh;width:14vw;height:7vw;background:#f7c899;border-radius:4vw"></div><div style="position:absolute;left:60vw;top:40vh;width:14vw;height:7vw;background:#f7c899;border-radius:4vw"></div>${seed(48,39,'big')}<div style="position:absolute;left:42vw;top:27vh;width:18vw;height:7vw;background:white;border-radius:3vw"></div>`;
+ if(type==='crunch')return `<div style="position:absolute;left:18vw;top:32vh;width:10vw;height:16vw;background:#f7c899;border-radius:50%"></div><div class="wave" style="left:33vw;top:33vh;width:10vw;height:10vw"></div><div class="wave" style="left:31vw;top:30vh;width:15vw;height:15vw;animation-delay:.4s"></div><div style="position:absolute;left:57vw;top:35vh;width:16vw;height:10vw;background:#ffc9de;border-radius:3vw;animation:bounce 2s infinite"></div><div style="position:absolute;left:41vw;top:27vh;font-size:5vw;color:#e58a2a;font-weight:800">crunch</div>`;
+ if(type==='reward')return Array.from({length:5},(_,i)=>seed(25+i*9,52-i*5)).join('')+Array.from({length:5},(_,i)=>`<div class="star" style="left:${34+i*7}vw;top:${55-i*6}vh;animation-delay:${i*.2}s"></div>`).join('')+child(73,40,'#b5e48c');
+ if(type==='family')return `<div class="table" style="left:33vw;top:52vh"></div>`+child(25,34,'#8ec5ff')+child(39,34,'#ffb6b9')+child(53,34,'#b5e48c')+child(67,34,'#ffd15c')+Array.from({length:24},(_,i)=>seed(36+Math.random()*24,54+Math.random()*4,'small')).join('');
+ if(type==='bigflower')return flower(37,19,1.35)+`<div style="position:absolute;left:49vw;top:55vh;width:1.2vw;height:18vh;background:#4e9a51;border-radius:1vw"></div>`;
+ if(type==='energy')return `<div class="seed big" style="left:31vw;top:31vh"></div><div style="position:absolute;left:53vw;top:31vh;width:6vw;height:6vw;background:#ffd15c;border-radius:50%;display:grid;place-items:center;font-weight:800">oil</div><div style="position:absolute;left:61vw;top:44vh;width:8vw;height:8vw;background:#ffd15c;border-radius:50%;display:grid;place-items:center;font-weight:800">protein</div><div style="position:absolute;left:48vw;top:55vh;width:8vw;height:8vw;background:#ffd15c;border-radius:50%;display:grid;place-items:center;font-weight:800">energy</div>`;
+ if(type==='tidy')return `<div class="bowl" style="left:29vw;top:49vh"></div>${Array.from({length:20},(_,i)=>seed(35+Math.random()*12,50+Math.random()*5,'small')).join('')}<div class="glass" style="left:66vw;top:38vh"><div class="water"></div></div>`;
+ if(type==='love')return child(39,35,'#8ec5ff')+child(53,35,'#ffb6b9')+`<div class="table" style="left:41vw;top:56vh;width:18vw"></div>`+Array.from({length:14},(_,i)=>seed(44+Math.random()*10,57+Math.random()*3,'small')).join('')+`<div class="heart" style="left:24vw;top:26vh"></div><div class="heart" style="left:67vw;top:27vh;animation-delay:.3s"></div><div class="heart" style="left:47vw;top:22vh;animation-delay:.6s"></div>`;
+}
+data.forEach((d,i)=>{const s=document.createElement('section');s.className='scene'+(i===0?' active':'');s.innerHTML=visual(d[2])+`<div class="caption"><h1>${d[0]}</h1><h2>${d[1]}</h2></div>`;scenes.appendChild(s);let dot=document.createElement('span');dot.className='dot'+(i===0?' on':'');dots.appendChild(dot);});
+let idx=0,playing=true,timer; const all=[...document.querySelectorAll('.scene')], allDots=[...document.querySelectorAll('.dot')];
+function show(n){idx=(n+data.length)%data.length; all.forEach((e,i)=>e.classList.toggle('active',i===idx)); allDots.forEach((e,i)=>e.classList.toggle('on',i===idx)); document.getElementById('pageNo').textContent=`${idx+1} / ${data.length}`;}
+function start(){clearInterval(timer); if(playing) timer=setInterval(()=>show(idx+1),4500)}
+document.getElementById('prev').onclick=()=>{show(idx-1);start()}; document.getElementById('next').onclick=()=>{show(idx+1);start()}; document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'暂停':'播放';start()}; start();
+</script>
+</body>
+</html>
