@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>优米Leo看世界 - 吃蓝莓对身体有什么好处？</title>
+<style>
+  :root{--blue:#4d63b8;--deep:#26335f;--sky:#eaf4ff;--cream:#fffaf0;--leaf:#dff4df;--purple:#f4edff;}
+  *{box-sizing:border-box} body{margin:0;background:linear-gradient(#fff8eb,#eef6ff);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--deep);}
+  .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px;}
+  .book{width:min(960px,96vw);height:min(620px,76vh);min-height:560px;background:rgba(255,255,255,.92);border:6px solid #dbe8ff;border-radius:34px;box-shadow:0 22px 70px rgba(83,116,174,.20);position:relative;overflow:hidden;}
+  .scene{position:absolute;inset:0;padding:28px 38px 88px;opacity:0;pointer-events:none;transform:translateX(30px) scale(.98);transition:.55s ease;}
+  .scene.active{opacity:1;pointer-events:auto;transform:translateX(0) scale(1);}
+  h1{font-size:30px;text-align:center;margin:6px 0 4px;letter-spacing:.04em}.subtitle{text-align:center;font-size:18px;margin-bottom:10px;color:#5a6692}.zh{text-align:center;font-size:20px;line-height:1.5;margin:8px auto 0;max-width:760px;color:#37406b}.page{position:absolute;right:40px;top:30px;background:#e6f0ff;padding:8px 16px;border-radius:999px;font-weight:700}.art{height:335px;margin:16px auto 0;max-width:780px;background:var(--sky);border-radius:28px;position:relative;overflow:hidden}.ground{position:absolute;left:9%;right:9%;bottom:28px;height:50px;border-radius:30px;background:var(--leaf)}
+  .cloud{position:absolute;width:110px;height:36px;background:#fff;border-radius:30px;opacity:.82;animation:float 5s ease-in-out infinite}.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}.cloud:before{width:44px;height:44px;left:22px;top:-17px}.cloud:after{width:52px;height:52px;left:50px;top:-22px}.c1{left:10%;top:58px}.c2{right:12%;top:82px;transform:scale(.75);animation-delay:1s}
+  .berry{position:absolute;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#7890df 0 11%,transparent 12%),#4d63b8;border:3px solid #2c3f91;box-shadow:inset -10px -10px 0 rgba(30,40,100,.12);animation:bob 2.6s ease-in-out infinite}.berry:before{content:"✶";position:absolute;left:21px;top:0px;color:#2c3f91;font-size:22px}.berry.face:after{content:"•  •\A⌣";white-space:pre;position:absolute;left:13px;top:22px;color:#1f2a60;font-size:22px;line-height:16px;text-align:center}.small{width:42px;height:42px}.tiny{width:30px;height:30px}.bowl{position:absolute;left:50%;bottom:80px;width:360px;height:120px;transform:translateX(-50%);background:#f6cb67;border-radius:0 0 180px 180px;box-shadow:0 -18px 0 #fff1c8}.sun{position:absolute;width:96px;height:96px;border-radius:50%;background:#ffd36e;left:50%;top:170px;transform:translateX(-50%);display:grid;place-items:center;font-weight:800;color:#87581b}.label{position:absolute;font-weight:800;color:#5a3e85;font-size:26px;text-align:center}.tummy{position:absolute;left:50%;top:120px;width:180px;height:180px;border-radius:50%;background:#ffe2d2;transform:translateX(-50%);display:grid;place-items:center;font-size:28px}.brain{position:absolute;left:50%;top:92px;transform:translateX(-50%);width:210px;height:145px;background:#ffe8f0;border-radius:70px 70px 42px 42px;box-shadow:-55px 25px 0 -10px #ffe8f0,55px 25px 0 -10px #ffe8f0}.eye{position:absolute;width:98px;height:56px;background:white;border-radius:50%;top:190px}.eye.left{left:22%}.eye.right{right:22%}.eye:after{content:"";position:absolute;width:18px;height:18px;background:#25335c;border-radius:50%;left:40px;top:20px;animation:look 3s infinite}.tray,.cup,.oat,.muffin,.sink,.plate{position:absolute;left:50%;top:115px;transform:translateX(-50%)}.tray{width:270px;height:150px;border-radius:22px;background:#fff7e5;border:4px solid #ddad65}.cup{width:105px;height:130px;background:#fff;border-radius:14px;left:35%;top:130px}.cup:after{content:"";position:absolute;left:12px;right:12px;bottom:18px;height:60px;background:#cfe2ff;border-radius:10px}.oat{width:120px;height:120px;border-radius:50%;background:#f5e2b8;top:145px}.muffin{width:110px;height:105px;border-radius:50%;background:#c98d51;left:66%;top:150px}.sink{width:360px;height:130px;border-radius:26px;background:#bfe5ff;top:135px}.water{position:absolute;width:10px;height:80px;background:#5baadf;border-radius:10px;top:80px;animation:drop 1.2s infinite}.plate{width:210px;height:210px;border-radius:50%;background:white;border:9px solid #d7e6ff;top:92px;overflow:hidden}.slice{position:absolute;width:140px;height:140px;border-radius:50%;}.s1{background:#ffb84d;left:-10px;top:10px}.s2{background:#ff6b6b;left:40px;top:85px}.s3{background:#8cd17d;left:100px;top:40px}
+  .controls{position:absolute;left:0;right:0;bottom:22px;display:flex;gap:12px;align-items:center;justify-content:center}.btn{border:0;border-radius:999px;background:#3156a3;color:white;padding:12px 20px;font-size:16px;cursor:pointer;box-shadow:0 6px 15px rgba(49,86,163,.25)}.btn.secondary{background:#fff;color:#3156a3;border:2px solid #dbe8ff}.dots{display:flex;gap:7px;margin:0 8px}.dot{width:10px;height:10px;border-radius:50%;background:#c9d7fa}.dot.on{background:#3156a3;transform:scale(1.25)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}} @keyframes float{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}} @keyframes look{0%,100%{transform:translateX(0)}50%{transform:translateX(15px)}} @keyframes drop{0%{height:20px;opacity:.2}50%{height:90px;opacity:1}100%{height:20px;opacity:.2}}
+</style>
+</head>
+<body>
+<div class="stage"><main class="book" id="book"></main></div>
+<script>
+const pages = [
+  {en:'Blueberries are tiny blue treasures.',zh:'蓝莓像藏在手心里的小宝石，酸酸甜甜，适合做小点心。',type:'bowl'},
+  {en:'They bring vitamins to our body.',zh:'维生素C、维生素K和矿物质，像身体里的小帮手。',type:'vitamins'},
+  {en:'Blueberries help our tummy feel happy.',zh:'蓝莓里的膳食纤维，帮助食物在肚子里慢慢向前走。',type:'tummy'},
+  {en:'The blue color comes from plant power.',zh:'花青素给蓝莓穿上蓝紫色外衣，也带来天然植物力量。',type:'power'},
+  {en:'Blueberries may help our eyes and brain.',zh:'蓝莓是健康饮食的一部分，和很多彩色食物一起帮助成长。',type:'brain'},
+  {en:'They are a sweet snack with little mess.',zh:'洗干净后，一口一颗，蓝莓是方便又开心的小点心。',type:'snack'},
+  {en:'Blueberries can join many yummy foods.',zh:'蓝莓可以跳进酸奶、燕麦和松饼里，变成美味朋友。',type:'foods'},
+  {en:'Wash them first, then eat slowly.',zh:'吃蓝莓前先洗一洗，小朋友慢慢嚼，更安全也更香。',type:'wash'},
+  {en:'A colorful plate makes us strong.',zh:'蓝莓很好，但身体喜欢彩虹餐盘里的各种食物。',type:'plate'}
+];
+const book=document.getElementById('book'); let index=0, timer=null, playing=true;
+function berry(x,y,cls='face',delay=0){return `<div class="berry ${cls}" style="left:${x}%;top:${y}%;animation-delay:${delay}s"></div>`}
+function smallBerry(x,y,delay=0){return `<div class="berry small" style="left:${x}%;top:${y}%;animation-delay:${delay}s"></div>`}
+function tinyBerry(x,y,delay=0){return `<div class="berry tiny" style="left:${x}%;top:${y}%;animation-delay:${delay}s"></div>`}
+function art(type){let base='<div class="art"><div class="cloud c1"></div><div class="cloud c2"></div><div class="ground"></div>'; let end='</div>';
+ if(type==='bowl') return base+'<div class="bowl"></div>'+berry(38,37,'face',0)+berry(46,32,'face',.2)+berry(54,39,'face',.4)+berry(61,35,'face',.1)+berry(50,25,'face',.3)+end;
+ if(type==='vitamins') return base+berry(28,28,'',0)+berry(48,22,'',.3)+berry(68,30,'',.6)+'<div class="label" style="left:27%;top:39%">C</div><div class="label" style="left:49%;top:33%">K</div><div class="label" style="left:66%;top:41%">Mn</div><div class="sun">Vitamins</div>'+end;
+ if(type==='tummy') return base+'<div class="tummy">😊<br><small>tummy</small></div>'+smallBerry(24,40,.1)+smallBerry(68,42,.4)+smallBerry(38,62,.2)+smallBerry(58,64,.5)+end;
+ if(type==='power') return base+`<div class="berry face" style="width:118px;height:118px;left:50%;top:38%;transform:translate(-50%,-50%);animation: bob 2.2s infinite"></div><div class="label" style="left:0;right:0;top:68%">Blue plant power ✨</div>`+end;
+ if(type==='brain') return base+'<div class="brain"></div><div class="eye left"></div><div class="eye right"></div>'+smallBerry(48,66,.4)+end;
+ if(type==='snack') return base+'<div class="tray"></div>'+smallBerry(38,43,0)+smallBerry(47,40,.2)+smallBerry(55,45,.4)+smallBerry(61,37,.6)+smallBerry(44,56,.8)+end;
+ if(type==='foods') return base+'<div class="cup"></div><div class="oat"></div><div class="muffin"></div>'+tinyBerry(32,49,.1)+tinyBerry(48,48,.3)+tinyBerry(66,50,.5)+tinyBerry(53,58,.7)+end;
+ if(type==='wash') return base+'<div class="sink"></div><div class="water" style="left:42%"></div><div class="water" style="left:49%;animation-delay:.25s"></div><div class="water" style="left:56%;animation-delay:.5s"></div>'+smallBerry(37,55,.1)+smallBerry(48,58,.3)+smallBerry(60,54,.5)+end;
+ return base+'<div class="plate"><div class="slice s1"></div><div class="slice s2"></div><div class="slice s3"></div></div>'+tinyBerry(47,35,.1)+tinyBerry(52,40,.3)+tinyBerry(58,32,.5)+end;
+}
+function render(){book.innerHTML=pages.map((p,i)=>`<section class="scene ${i===index?'active':''}"><div class="page">${i+1}/9</div><h1>${p.en}</h1><div class="subtitle">${p.zh}</div>${art(p.type)}</section>`).join('')+`<div class="controls"><button class="btn secondary" onclick="prev()">上一页</button><button class="btn" onclick="toggle()" id="playBtn">${playing?'暂停':'播放'}</button><div class="dots">${pages.map((_,i)=>`<span class="dot ${i===index?'on':''}"></span>`).join('')}</div><button class="btn secondary" onclick="next()">下一页</button></div>`}
+function next(){index=(index+1)%pages.length;render()} function prev(){index=(index+pages.length-1)%pages.length;render()} function toggle(){playing=!playing;render();schedule()} function schedule(){clearInterval(timer); if(playing) timer=setInterval(next,4200)}
+render(); schedule();
+</script>
+</body>
+</html>
