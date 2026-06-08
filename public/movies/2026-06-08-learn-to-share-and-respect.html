@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>优米Leo看世界 - 懂得分享，学会尊重</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; background: linear-gradient(135deg,#fff7d6,#e9f7ff); color:#344055; overflow:hidden; }
+  .app { width:100vw; height:100vh; display:flex; align-items:center; justify-content:center; padding:22px; }
+  .stage { position:relative; width:min(1120px,96vw); height:min(680px,92vh); border-radius:34px; background:#fffaf0; box-shadow:0 22px 70px rgba(60,50,20,.18); overflow:hidden; border:4px solid rgba(255,183,3,.28); }
+  .scene { position:absolute; inset:0; opacity:0; transform:translateX(40px) scale(.98); transition:all .55s ease; padding:34px 42px; display:grid; grid-template-columns: 1.05fr .95fr; gap:30px; }
+  .scene.active { opacity:1; transform:translateX(0) scale(1); }
+  .brand { position:absolute; top:20px; left:34px; font-weight:800; color:#3d405b; font-size:24px; z-index:5; }
+  .date { position:absolute; top:25px; right:34px; color:#748091; z-index:5; }
+  .art { position:relative; margin-top:48px; height:500px; border-radius:28px; background:linear-gradient(#e5f7ff 0 58%, #d8f3dc 58%); overflow:hidden; border:2px solid rgba(255,183,3,.25); }
+  .sun { position:absolute; right:45px; top:38px; width:70px; height:70px; background:#ffd166; border-radius:50%; animation: pulse 2s infinite ease-in-out; }
+  .cloud { position:absolute; left:55px; top:55px; width:120px; height:44px; background:white; border-radius:30px; animation: drift 7s infinite alternate ease-in-out; }
+  .cloud:before,.cloud:after { content:""; position:absolute; background:white; border-radius:50%; }
+  .cloud:before { width:52px; height:52px; left:18px; top:-22px; } .cloud:after { width:62px; height:62px; left:55px; top:-28px; }
+  .kid { position:absolute; bottom:96px; width:82px; height:154px; animation: bob 2.2s infinite ease-in-out; }
+  .kid.k1 { left:100px; } .kid.k2 { left:275px; animation-delay:.25s; } .kid.k3 { left:430px; animation-delay:.5s; }
+  .head { position:absolute; top:0; left:20px; width:42px; height:42px; border-radius:50%; background:#ffd7b5; border:2px solid #5b4b3a; }
+  .head:before { content:""; position:absolute; width:36px; height:16px; left:2px; top:-8px; background:#5a3828; border-radius:50%; }
+  .body { position:absolute; top:45px; left:16px; width:50px; height:58px; border-radius:14px; background:var(--shirt,#74c0fc); border:2px solid #5b4b3a; }
+  .arm { position:absolute; top:58px; width:42px; height:7px; background:#f0b38f; border-radius:8px; transform-origin:left center; }
+  .arm.left { left:-3px; transform:rotate(28deg); } .arm.right { left:44px; transform:rotate(-28deg); }
+  .leg { position:absolute; top:101px; width:7px; height:48px; background:#5b4b3a; border-radius:8px; } .leg.l { left:26px; transform:rotate(14deg); } .leg.r { left:50px; transform:rotate(-14deg); }
+  .prop { position:absolute; animation: wiggle 2.6s infinite ease-in-out; }
+  .block { width:42px; height:42px; border-radius:10px; bottom:108px; }
+  .bubble { background:white; border-radius:18px; padding:12px 18px; font-weight:800; color:#495057; box-shadow:0 8px 20px rgba(0,0,0,.08); }
+  .heart { width:34px; height:34px; transform:rotate(45deg); background:#ff6b8a; animation: float 2.5s infinite ease-in-out; }
+  .heart:before,.heart:after { content:""; position:absolute; width:34px; height:34px; border-radius:50%; background:#ff6b8a; } .heart:before { left:-17px; } .heart:after { top:-17px; }
+  .copy { margin-top:92px; display:flex; flex-direction:column; justify-content:center; }
+  h1 { font-size:44px; line-height:1.12; margin:0 0 18px; color:#2f3a56; }
+  .zh { font-size:22px; line-height:1.75; background:white; border-radius:24px; padding:24px; box-shadow:0 12px 32px rgba(72,62,28,.08); }
+  .question { margin-top:18px; font-size:20px; line-height:1.55; color:#2d6a4f; background:#f0fff4; border-radius:22px; padding:18px 22px; border:2px solid #b7e4c7; }
+  .controls { position:absolute; bottom:22px; right:30px; display:flex; gap:12px; z-index:10; align-items:center; }
+  button { border:0; border-radius:999px; padding:12px 20px; background:#3d405b; color:white; font-weight:800; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.14); }
+  button.alt { background:#ffb703; color:#3d405b; }
+  .pageNo { padding:10px 16px; background:white; border-radius:999px; font-weight:800; color:#3d405b; }
+  .dots { position:absolute; left:34px; bottom:28px; display:flex; gap:7px; z-index:10; }
+  .dot { width:10px; height:10px; border-radius:50%; background:#d0d4dc; } .dot.active { background:#ffb703; transform:scale(1.35); }
+  @keyframes bob { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
+  @keyframes drift { from{ transform:translateX(0); } to{ transform:translateX(50px); } }
+  @keyframes pulse { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.08); } }
+  @keyframes wiggle { 0%,100%{ transform:rotate(-4deg); } 50%{ transform:rotate(5deg); } }
+  @keyframes float { 0%,100%{ transform:translateY(0) rotate(45deg); } 50%{ transform:translateY(-18px) rotate(45deg); } }
+</style>
+</head>
+<body>
+<div class="app"><main class="stage">
+  <div class="brand">优米Leo看世界</div><div class="date">2026-06-08</div>
+  <div id="scenes"></div>
+  <div class="dots" id="dots"></div>
+  <div class="controls"><button onclick="prev()">上一页</button><button class="alt" onclick="togglePlay()" id="playBtn">暂停</button><button onclick="next()">下一页</button><span class="pageNo" id="pageNo">1 / 9</span></div>
+</main></div>
+<script>
+const data=[{"en": "I can share my toys.", "zh": "当我有喜欢的玩具时，可以和朋友一起玩。分享不是把东西永远送出去，而是让快乐变成两份。", "q": "你今天可以和谁分享一个小东西？", "scene": "two kids sharing blocks", "key": "Share"}, {"en": "I wait for my turn.", "zh": "有时候我也很想马上玩，但我可以先等一等。轮流玩，大家都会觉得公平又安心。", "q": "排队或轮流时，你可以做什么让自己等得开心一点？", "scene": "kids taking turns on slide", "key": "Turn"}, {"en": "I ask before I take.", "zh": "别人的东西不是我的，想用的时候要先问一问。一个温柔的“我可以吗？”会让朋友更愿意相信我。", "q": "想借别人的东西时，你会怎么说？", "scene": "child asking for crayon", "key": "Ask"}, {"en": "I listen with kind ears.", "zh": "尊重别人，也包括认真听别人说话。听的时候看着对方，不打断，会让对方觉得自己很重要。", "q": "别人讲话时，我们怎样表现出“我在听”？", "scene": "listening under tree", "key": "Listen"}, {"en": "I say no kindly.", "zh": "分享很美好，但我也可以温柔地说“不”。如果我还没准备好，可以说明原因，再约一个合适的时间。", "q": "如果你暂时不想分享，怎样说既清楚又有礼貌？", "scene": "kid holding teddy kindly", "key": "Kind No"}, {"en": "I keep my promise.", "zh": "如果我说“玩五分钟就还给你”，就要努力做到。守信用，会让朋友觉得和我在一起很放心。", "q": "你答应过别人的事情，怎样提醒自己做到？", "scene": "clock and toy return", "key": "Promise"}, {"en": "I care about feelings.", "zh": "分享和尊重，不只是看东西怎么分，也要看朋友的心情。如果朋友难过，我可以问：“你还好吗？”", "q": "看到朋友不开心，你可以说哪一句关心的话？", "scene": "comforting friend", "key": "Feelings"}, {"en": "We can like different things.", "zh": "我喜欢蓝色，你喜欢黄色；我想搭城堡，你想搭火车。想法不一样没关系，我们可以一起想办法。", "q": "当你和朋友想法不一样时，可以怎么商量？", "scene": "different ideas together", "key": "Different"}, {"en": "Sharing makes our hearts grow.", "zh": "当我懂得分享，也学会尊重，快乐就会在我们中间流动。今天的一点点善意，会变成明天更大的友谊。", "q": "今天你想做哪一件友善的小事？", "scene": "kids together hearts", "key": "Respect"}];
+let current=0, playing=true, timer=null;
+const colors=['#74c0fc','#ffa8a8','#8ce99a','#b197fc','#ffd43b'];
+function propsFor(i){
+  if(i===0) return '<div class="prop block" style="left:220px;background:#ff6b6b"></div><div class="prop block" style="left:270px;background:#4dabf7;animation-delay:.3s"></div><div class="prop block" style="left:245px;bottom:158px;background:#82c91e;animation-delay:.6s"></div>';
+  if(i===1) return '<div class="prop bubble" style="left:210px;top:120px">My turn soon!</div>';
+  if(i===2) return '<div class="prop bubble" style="left:210px;top:130px">May I?</div><div class="prop" style="left:310px;bottom:145px;width:90px;height:22px;background:#f9a825;border-radius:8px"></div>';
+  if(i===3) return '<div class="prop bubble" style="left:275px;top:120px">I am listening.</div>';
+  if(i===4) return '<div class="prop bubble" style="left:245px;top:130px">Later, please.</div>';
+  if(i===5) return '<div class="prop bubble" style="left:220px;top:120px">I promise.</div><div class="prop" style="left:255px;top:205px;width:72px;height:72px;border:6px solid #4a5568;border-radius:50%"></div>';
+  if(i===6) return '<div class="prop heart" style="left:265px;top:180px"></div><div class="prop bubble" style="left:90px;top:120px">Are you OK?</div>';
+  if(i===7) return '<div class="prop bubble" style="left:75px;top:130px">Castle</div><div class="prop bubble" style="left:330px;top:130px">Train</div>';
+  return '<div class="prop heart" style="left:170px;top:160px"></div><div class="prop heart" style="left:285px;top:130px;animation-delay:.5s"></div><div class="prop heart" style="left:395px;top:170px;animation-delay:1s"></div>';
+}
+function kid(n,shirt,leftClass){ return `<div class="kid ${leftClass}" style="--shirt:${shirt}"><div class="head"></div><div class="body"></div><div class="arm left"></div><div class="arm right"></div><div class="leg l"></div><div class="leg r"></div></div>`; }
+function render(){
+  const root=document.getElementById('scenes'); root.innerHTML='';
+  data.forEach((p,i)=>{
+    const third=i===8?kid(3,colors[3],'k3'):'';
+    root.insertAdjacentHTML('beforeend',`<section class="scene ${i===0?'active':''}"><div class="art"><div class="sun"></div><div class="cloud"></div>${kid(1,colors[i%colors.length],'k1')}${kid(2,colors[(i+1)%colors.length],'k2')}${third}${propsFor(i)}</div><div class="copy"><h1>${p.en}</h1><div class="zh">${p.zh}</div><div class="question"><b>亲子提问：</b>${p.q}</div></div></section>`);
+  });
+  document.getElementById('dots').innerHTML=data.map((_,i)=>`<span class="dot ${i===0?'active':''}"></span>`).join('');
+}
+function update(){
+  document.querySelectorAll('.scene').forEach((s,i)=>s.classList.toggle('active',i===current));
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===current));
+  document.getElementById('pageNo').textContent=`${current+1} / ${data.length}`;
+}
+function next(){ current=(current+1)%data.length; update(); }
+function prev(){ current=(current-1+data.length)%data.length; update(); }
+function start(){ timer=setInterval(next,5200); }
+function togglePlay(){ playing=!playing; document.getElementById('playBtn').textContent=playing?'暂停':'播放'; if(playing) start(); else clearInterval(timer); }
+render(); start();
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); if(e.key===' ') togglePlay(); });
+</script>
+</body>
+</html>
