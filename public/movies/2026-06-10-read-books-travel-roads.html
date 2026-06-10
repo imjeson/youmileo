@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>优米Leo看世界 - 读万卷书，行万里路</title>
+<style>
+:root { --bg:#fff8ec; --ink:#253858; --soft:#eaf7ff; --yellow:#ffe08a; --green:#83d483; --blue:#7fc8f8; --red:#ff7d7d; }
+* { box-sizing:border-box; }
+body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", sans-serif; background:var(--bg); color:var(--ink); overflow:hidden; }
+.app { width:100vw; height:100vh; position:relative; }
+.scene { position:absolute; inset:0; display:grid; grid-template-columns: 48% 52%; align-items:center; padding:5vw; opacity:0; transform:translateX(20px); pointer-events:none; transition:opacity .6s ease, transform .6s ease; }
+.scene.active { opacity:1; transform:translateX(0); pointer-events:auto; }
+.sky { position:absolute; inset:0; overflow:hidden; z-index:-1; background:linear-gradient(#fff8ec,#eef9ff); }
+.sun { position:absolute; right:11vw; top:8vh; width:82px; height:82px; background:var(--yellow); border-radius:50%; animation:pulse 3s ease-in-out infinite; }
+.cloud,.cloud:before,.cloud:after { position:absolute; display:block; background:white; border-radius:50px; content:""; }
+.cloud { width:110px; height:36px; top:14vh; left:-130px; animation:cloud 18s linear infinite; opacity:.9; }
+.cloud:before { width:50px; height:50px; left:18px; top:-25px; } .cloud:after { width:62px; height:62px; left:48px; top:-34px; }
+.c2 { top:28vh; animation-duration:25s; animation-delay:-8s; transform:scale(.8); }
+.stage { width:min(440px, 38vw); height:min(440px, 72vh); background:var(--soft); border:4px solid #b9e2f5; border-radius:34px; position:relative; margin:auto; overflow:hidden; box-shadow:0 20px 50px rgba(37,56,88,.12); }
+.book { position:absolute; left:24%; bottom:18%; width:180px; height:112px; background:#fff; border:4px solid #4b6584; border-radius:14px; transform-origin:center; animation:bookFloat 3s ease-in-out infinite; }
+.book:before { content:""; position:absolute; left:50%; top:8px; bottom:8px; border-left:3px solid #4b6584; }
+.book span:before,.book span:after { content:""; position:absolute; top:30px; width:55px; height:8px; border-top:3px solid #b0c4de; border-bottom:3px solid #b0c4de; }
+.book span:before { left:18px; } .book span:after { right:18px; }
+.traveler { position:absolute; left:11%; bottom:15%; width:46px; height:84px; animation:walk 4s ease-in-out infinite; }
+.traveler:before { content:""; position:absolute; left:8px; top:0; width:30px; height:30px; background:#ffd9b3; border-radius:50%; }
+.traveler:after { content:""; position:absolute; left:5px; top:34px; width:36px; height:42px; background:#73b6f2; border-radius:12px; }
+.traveler i:before,.traveler i:after { content:""; position:absolute; bottom:0; width:4px; height:30px; background:#444; transform-origin:top; }
+.traveler i:before { left:16px; transform:rotate(20deg); } .traveler i:after { right:16px; transform:rotate(-20deg); }
+.road { position:absolute; left:43%; bottom:-8%; width:90px; height:280px; background:#7a8797; clip-path:polygon(38% 0,62% 0,100% 100%,0 100%); animation:roadMove 1.8s linear infinite; }
+.globe { position:absolute; right:14%; top:27%; width:138px; height:138px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #9ee1ff, #55aee9); box-shadow:inset -16px -12px 0 rgba(0,0,0,.08); animation:spin 6s linear infinite; }
+.globe:before,.globe:after { content:""; position:absolute; background:#73cf7a; border-radius:50%; } .globe:before { width:75px; height:38px; left:22px; top:28px; } .globe:after { width:65px; height:32px; right:16px; bottom:28px; }
+.spark { position:absolute; font-size:38px; font-weight:800; animation:float 2.8s ease-in-out infinite; } .s1{ left:22%; top:18%; color:#ff6b6b; } .s2{ right:22%; top:17%; color:#ffd166; animation-delay:.5s; } .s3{ right:28%; bottom:24%; color:#4d96ff; animation-delay:1s; }
+.caption { padding:2vw 4vw; } .caption h1 { font-size:clamp(34px, 5vw, 64px); margin:0 0 22px; line-height:1.05; } .caption p { font-size:clamp(20px, 2.4vw, 34px); line-height:1.55; margin:0; color:#3b4b61; max-width:760px; }
+.controls { position:fixed; left:50%; bottom:24px; transform:translateX(-50%); display:flex; gap:12px; align-items:center; background:rgba(255,255,255,.85); backdrop-filter:blur(8px); padding:12px 16px; border-radius:999px; box-shadow:0 12px 30px rgba(0,0,0,.12); }
+button { border:0; border-radius:999px; padding:10px 18px; background:#253858; color:white; font-weight:700; cursor:pointer; }
+button.secondary { background:#ffe08a; color:#4b3b00; }
+.counter { min-width:58px; text-align:center; font-weight:700; }
+.map .book{ transform:rotate(-8deg); } .map .road{ display:none; } .leafmoon .globe{ width:90px;height:90px; right:18%; top:14%; background:#f7e98e; } .questions .spark{ font-size:56px; } .home .stage:after{ content:""; position:absolute; left:28%; bottom:23%; width:150px; height:120px; background:#ffd166; clip-path:polygon(0 35%,50% 0,100% 35%,100% 100%,0 100%); } .familyglobe .book{ bottom:11%; left:32%; }
+@keyframes pulse { 50% { transform:scale(1.08); } }
+@keyframes cloud { to { transform:translateX(calc(100vw + 260px)); } }
+@keyframes bookFloat { 50% { transform:translateY(-10px) rotate(2deg); } }
+@keyframes walk { 50% { transform:translateX(26px) translateY(-4px); } }
+@keyframes roadMove { 50% { filter:brightness(1.1); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes float { 50% { transform:translateY(-18px) rotate(8deg); } }
+@media (max-width: 760px) { .scene { grid-template-columns:1fr; padding:4vw 5vw 90px; } .stage { width:86vw; height:44vh; } .caption { text-align:center; } }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+    <section class="scene" data-index="0">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage bookdoor">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Books are little doors.</h1>
+        <p>书像一扇扇小门。打开一本书，我们就能看见森林、海洋、星星，还有很多没见过的朋友。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="1">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage rocketbook">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Reading takes us far away.</h1>
+        <p>坐在家里读书时，脑袋已经开始旅行。故事会带我们去很远的地方，还不用收拾行李。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="2">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage road">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Travel helps us see the real world.</h1>
+        <p>走出去看看，风是真的，山是真的，街上的声音也是真的。旅行让书里的知识变得会呼吸。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="3">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage map">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>A map can start a big dream.</h1>
+        <p>一张地图上有弯弯的河、远远的城市和蓝蓝的大海。小手指一点，梦想就开始出发。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="4">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage leafmoon">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Books teach us what to look for.</h1>
+        <p>读过植物的书，散步时就会注意叶子的形状；读过月亮的书，晚上就会抬头找月亮。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="5">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage questions">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>The road gives us new questions.</h1>
+        <p>路上看到不同的人、不同的房子、不同的饭菜，我们会冒出好多“为什么”。这就是学习在长大。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="6">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage people">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>We can learn from every person.</h1>
+        <p>有的人会种花，有的人会修车，有的人会讲老故事。世界很大，每个人都像一本特别的书。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="7">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage home">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Home is also a wonderful place.</h1>
+        <p>行万里路不是只去很远的地方。认真看一朵花、一条小路、一次买菜，也是在认识世界。</p>
+      </div>
+    </section>
+    <section class="scene" data-index="8">
+      <div class="sky"><span class="sun"></span><span class="cloud c1"></span><span class="cloud c2"></span></div>
+      <div class="stage familyglobe">
+        <div class="book"><span></span></div>
+        <div class="traveler"><i></i></div>
+        <div class="road"></div>
+        <div class="globe"></div>
+        <div class="spark s1">?</div><div class="spark s2">★</div><div class="spark s3">✦</div>
+      </div>
+      <div class="caption">
+        <h1>Read, walk, wonder, and grow.</h1>
+        <p>多读书，多看看，多提问。心里装着书，脚下走着路，我们就会慢慢长成勇敢又好奇的人。</p>
+      </div>
+    </section>
+</div>
+<div class="controls">
+  <button class="secondary" id="prev">上一页</button>
+  <span class="counter" id="counter">1/9</span>
+  <button id="play">暂停</button>
+  <button class="secondary" id="next">下一页</button>
+</div>
+<script>
+const scenes=[...document.querySelectorAll('.scene')];
+let index=0, playing=true, timer=null;
+function show(i){
+  index=(i+scenes.length)%scenes.length;
+  scenes.forEach((s,n)=>s.classList.toggle('active', n===index));
+  document.getElementById('counter').textContent=(index+1)+'/'+scenes.length;
+}
+function start(){ clearInterval(timer); timer=setInterval(()=>show(index+1), 5200); }
+document.getElementById('prev').onclick=()=>{ show(index-1); if(playing) start(); };
+document.getElementById('next').onclick=()=>{ show(index+1); if(playing) start(); };
+document.getElementById('play').onclick=()=>{ playing=!playing; document.getElementById('play').textContent=playing?'暂停':'播放'; if(playing) start(); else clearInterval(timer); };
+show(0); start();
+</script>
+</body>
+</html>
