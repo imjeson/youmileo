@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>2026-06-14</title>
+<style>
+body{margin:0;font-family:Arial;overflow:hidden;background:#fff7e6}
+.slide{display:none;text-align:center;padding-top:20vh}
+.active{display:block}
+.en{font-size:32px;font-weight:bold}
+.zh{font-size:22px;margin-top:20px}
+.btn{position:absolute;bottom:20px;left:50%;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div class='slide'><div class='en'>Stop and think before acting.</div><div class='zh'>先停下来再做事情，能避免很多错误。</div></div><div class='slide'><div class='en'>Not too fast, not too slow.</div><div class='zh'>不快不慢，找到合适节奏。</div></div><div class='slide'><div class='en'>Deep breath helps calm down.</div><div class='zh'>深呼吸可以让我们冷静。</div></div><div class='slide'><div class='en'>Step by step is better.</div><div class='zh'>一步一步做更容易成功。</div></div><div class='slide'><div class='en'>Ask for help when needed.</div><div class='zh'>需要时要勇敢求助。</div></div><div class='slide'><div class='en'>Try again patiently.</div><div class='zh'>耐心再试一次。</div></div><div class='slide'><div class='en'>Balance is the best way.</div><div class='zh'>平衡节奏是最好的方式。</div></div><div class='slide'><div class='en'>Slow mind, smart action.</div><div class='zh'>慢一点思考，聪明地行动。</div></div>
+<div class='btn'>
+<button onclick='prev()'>Prev</button>
+<button onclick='next()'>Next</button>
+</div>
+<script>
+let i=0;
+let slides=document.querySelectorAll('.slide');
+function show(){slides.forEach((s,j)=>s.classList.remove('active'));slides[i].classList.add('active')}
+function next(){i=(i+1)%slides.length;show()}
+function prev(){i=(i-1+slides.length)%slides.length;show()}
+show();
+</script>
+</body>
+</html>
