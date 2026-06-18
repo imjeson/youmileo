@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>优米Leo看世界 - 人需要比较吗？</title>
+<style>
+:root {
+  --bg1:#fff4d8;
+  --bg2:#dff3ff;
+  --card:rgba(255,255,255,.92);
+  --ink:#24364a;
+  --muted:#617287;
+  --accent:#ff8ab3;
+  --accent2:#71cfff;
+  --gold:#ffd86a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255,255,255,.95), transparent 22%),
+    radial-gradient(circle at 85% 20%, rgba(255,255,255,.85), transparent 18%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+}
+.app{
+  width:min(1180px,100%);
+  background:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:0 22px 70px rgba(54,78,104,.18);
+  backdrop-filter:blur(12px);
+}
+.progress{height:6px;background:#eaf2f8}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .12s linear}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px 12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800}
+.logo{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffadc8,#ffe28a);box-shadow:0 10px 22px rgba(255,138,179,.28)}
+.title{text-align:right;color:var(--muted);font-size:14px;line-height:1.5}
+.stage{padding:0 20px 14px}
+.slide{display:none}
+.slide.active{display:block;animation:fadeIn .45s ease both}
+.illustration{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  border-radius:26px;
+  background:#fff8f1;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.85);
+}
+.illustration img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  animation:kenburns 6.5s ease-in-out infinite alternate;
+}
+.illustration::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.06), transparent 35%), radial-gradient(circle at 20% 20%, rgba(255,255,255,.2), transparent 28%);
+  pointer-events:none;
+}
+.caption{
+  margin-top:14px;
+  border-radius:24px;
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.96);
+  padding:18px 20px 20px;
+  display:grid;gap:8px;
+}
+.caption h1{margin:0;font-size:clamp(24px,3.8vw,42px);line-height:1.08;letter-spacing:-.02em}
+.cn{margin:0;color:#3c4c61;font-size:clamp(16px,2.1vw,22px);line-height:1.65}
+.ask{margin:4px 0 0;padding:10px 14px;border-radius:16px;background:#fff0d8;color:#7a4d25;font-size:clamp(14px,1.7vw,18px);line-height:1.5}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px 22px;flex-wrap:wrap}
+.btn-group{display:flex;gap:10px;flex-wrap:wrap}
+button{
+  border:0;cursor:pointer;
+  border-radius:999px;padding:12px 18px;font-weight:700;
+  background:#fff;color:#30445b;box-shadow:0 8px 22px rgba(80,90,110,.12)
+}
+button.primary{background:linear-gradient(135deg,var(--accent),var(--gold));color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.12)}
+.dots{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;flex:1}
+.dot{width:10px;height:10px;border-radius:50%;background:#c6d8e4;transition:.2s;cursor:pointer}
+.dot.active{width:28px;border-radius:999px;background:var(--accent)}
+.footer-note{padding:0 24px 24px;color:var(--muted);font-size:13px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes kenburns{from{transform:scale(1) translateY(0)}to{transform:scale(1.045) translateY(-4px)}}
+@media (max-width:760px){
+  body{padding:10px}
+  .header,.controls,.footer-note{padding-left:14px;padding-right:14px}
+  .stage{padding-left:12px;padding-right:12px}
+  .header{justify-content:center}
+  .title{text-align:center;width:100%}
+  .controls{justify-content:center}
+  .dots{order:3;width:100%}
+}
+</style>
+</head>
+<body>
+<main class="app" aria-label="优米Leo看世界 HTML5 动画绘本">
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <header class="header">
+    <div class="brand"><div class="logo">⭐</div><div>优米Leo看世界</div></div>
+    <div class="title">Do People Need to Compare? / 人需要比较吗？<br>动漫风格绘本动画</div>
+  </header>
+  <section class="stage" id="stage"></section>
+  <div class="controls">
+    <div class="btn-group">
+      <button id="prev" aria-label="上一页">← 上一页</button>
+      <button id="next" aria-label="下一页">下一页 →</button>
+    </div>
+    <div class="dots" id="dots" aria-label="页码"></div>
+    <div class="btn-group">
+      <button id="play" class="primary" aria-label="自动播放">暂停自动播放</button>
+    </div>
+  </div>
+  <div class="footer-note">支持自动播放、上一页 / 下一页切换。当前版本已更新为更丰富的动漫风格插图。</div>
+</main>
+<script>
+const slides = [{"english": "We are all different.", "chinese": "每个人都像不同的小星星：有的会画画，有的会跑步，有的很会讲笑话。不一样，不代表谁更好，只代表每个人都有自己的光。", "question": "你觉得自己和朋友有哪些不一样的地方？", "image": "ghostwriter_images/generated/a_bright_warm_highly_detailed_anime_style_illust_1.png"}, {"english": "A ruler can measure height, but not kindness.", "chinese": "尺子可以量高矮，考试可以看分数，可是善良、勇敢、努力和好奇心，常常不是一个数字就能量出来的。", "question": "除了高矮和分数，你还喜欢自己什么地方？", "image": "ghostwriter_images/generated/a_bright_warm_anime_style_classroom_scene_in_sof_2_batch_1.png"}, {"english": "Comparing can help us learn.", "chinese": "看到别人做得很好，我们可以把比较变成学习：他是怎么练习的？我可以试一试他的好方法吗？", "question": "你最近想向谁学习一个小本领？", "image": "ghostwriter_images/generated/a_warm_bright_detailed_anime_style_illustration_3_batch_2.png"}, {"english": "Comparing can make our hearts heavy.", "chinese": "如果总是想“我不如他”，心里就会像背着小石头一样累。比较太多，会让我们忘记自己也在努力。", "question": "什么时候比较会让你有点难过？", "image": "ghostwriter_images/generated/a_warm_golden_sunlit_children_s_illustration_in_4_batch_3.png"}, {"english": "Look at your own little steps.", "chinese": "有一种很好的比较，是和昨天的自己比。今天多读一句英文，多勇敢问一个问题，都是小小的进步。", "question": "你今天比昨天进步了一点点的事情是什么？", "image": "ghostwriter_images/generated/a_bright_warm_highly_detailed_anime_style_illust_5_batch_4.png"}, {"english": "Everyone has a different flower time.", "chinese": "有的花早一点开，有的花晚一点开。孩子也是这样：有人早会骑车，有人晚一点会，但都可以慢慢长大。", "question": "你有没有一件事，是慢慢练会的？", "image": "ghostwriter_images/generated/a_warm_glowing_highly_detailed_anime_chibi_inspi_6_batch_5.png"}, {"english": "Cheer for others, and cheer for yourself.", "chinese": "别人做得好，我们可以真心鼓掌；自己有一点点进步，也值得给自己鼓掌。掌声不是抢走的，而是可以一起变多的。", "question": "今天你想为谁鼓掌？也想为自己哪件事鼓掌？", "image": "ghostwriter_images/generated/a_bright_colorful_anime_illustration_scene_set_in_8_batch_7.png"}, {"english": "Ask, “What can I learn?”", "chinese": "当我们想比较时，可以换一个问题：“我能学到什么？”这样，比较就不会变成难过，而会变成成长的小线索。", "question": "下次看到别人很棒，你想问他什么好方法？", "image": "ghostwriter_images/generated/a_bright_warm_animated_illustrated_scene_in_a_cl_7_batch_6.png"}, {"english": "I can grow in my own way.", "chinese": "我们不需要变成别人。我们可以学习别人，也可以喜欢自己。一步一步，用自己的方式长大。", "question": "你想怎样用自己的方式慢慢长大？", "image": "ghostwriter_images/generated/a_bright_optimistic_anime_style_illustration_of_9_batch_8.png"}];
+const stage = document.getElementById('stage');
+const dots = document.getElementById('dots');
+const bar = document.getElementById('bar');
+const playBtn = document.getElementById('play');
+let index = 0;
+let playing = true;
+let tick = null;
+let progressTimer = null;
+const interval = 6500;
+function render() {
+  stage.innerHTML = slides.map((s,i)=>`
+    <article class="slide ${i===index?'active':''}">
+      <div class="illustration">
+        <img src="${s.image}" alt="${s.english} 动漫插图">
+      </div>
+      <div class="caption">
+        <h1>${s.english}</h1>
+        <p class="cn">${s.chinese}</p>
+        <p class="ask">亲子提问：${s.question}</p>
+      </div>
+    </article>
+  `).join('');
+  dots.innerHTML = slides.map((_,i)=>`<span class="dot ${i===index?'active':''}" data-i="${i}"></span>`).join('');
+  document.querySelectorAll('.dot').forEach(d=>d.onclick=()=>go(Number(d.dataset.i)));
+  updateBar(0);
+}
+function updateBar(pct){bar.style.width = pct + '%';}
+function go(i){
+  index=(i+slides.length)%slides.length;
+  render();
+  restart();
+}
+function next(){go(index+1)}
+function prev(){go(index-1)}
+function restart(){
+  clearInterval(tick); clearInterval(progressTimer);
+  updateBar(0);
+  if(!playing) return;
+  const start = Date.now();
+  tick = setInterval(next, interval);
+  progressTimer = setInterval(()=>{
+    const pct = Math.min(100, ((Date.now()-start)%interval)/interval*100);
+    updateBar(pct);
+  }, 120);
+}
+document.getElementById('next').onclick = next;
+document.getElementById('prev').onclick = prev;
+playBtn.onclick = ()=>{
+  playing=!playing;
+  playBtn.textContent = playing ? '暂停自动播放' : '开始自动播放';
+  restart();
+};
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='ArrowRight') next();
+  if(e.key==='ArrowLeft') prev();
+  if(e.key===' ') { e.preventDefault(); playBtn.click(); }
+});
+render();
+restart();
+</script>
+</body>
+</html>
