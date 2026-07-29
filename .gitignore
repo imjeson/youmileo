@@ -13,6 +13,10 @@
 # production
 /build
 
+# local media assets
+/public/audio/
+/public/video/
+
 # misc
 .DS_Store
 *.pem
